@@ -12,7 +12,7 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentSquare = board.FindPiece(this);
             var availableMoves = Enumerable.Empty<Square>();
-            // up
+            // north
             int i = currentSquare.Row + 1;
             int j = currentSquare.Col;
             while (i < GameSettings.BoardSize && board.GetPieceAtCoords(i, j) == null)
@@ -22,7 +22,7 @@ namespace Chessington.GameEngine.Pieces
                 i++;
             }
             
-            // down
+            // south
             i = currentSquare.Row - 1;
             j = currentSquare.Col;
             while (i >= 0 && board.GetPieceAtCoords(i, j) == null)
@@ -32,7 +32,7 @@ namespace Chessington.GameEngine.Pieces
                 i--;
             }
             
-            // right
+            // east
             i = currentSquare.Row;
             j = currentSquare.Col + 1;
             while (j < GameSettings.BoardSize && board.GetPieceAtCoords(i, j) == null)
@@ -42,7 +42,7 @@ namespace Chessington.GameEngine.Pieces
                 j++;
             }
             
-            // left
+            // west
             i = currentSquare.Row;
             j = currentSquare.Col - 1;
             while (j >= 0 && board.GetPieceAtCoords(i, j) == null)
