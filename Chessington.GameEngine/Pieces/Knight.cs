@@ -28,7 +28,9 @@ namespace Chessington.GameEngine.Pieces
             
             foreach ((int, int) possibleMove in possibleMoves)
             {
-                if (board.CanMoveTo(possibleMove.Item1, possibleMove.Item2))
+                if (board.CanMoveTo(possibleMove.Item1, possibleMove.Item2) ||
+                    (board.InBounds(possibleMove.Item1, possibleMove.Item2) && 
+                     this.Player != board.GetPieceAtCoords(possibleMove.Item1, possibleMove.Item2).Player))
                 {
                     var availableMove = Square.At(possibleMove.Item1, possibleMove.Item2);
                     availableMoves.Add(availableMove);
