@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Chessington.GameEngine.Pieces;
 
@@ -29,6 +30,11 @@ namespace Chessington.GameEngine
         public Piece GetPiece(Square square)
         {
             return board[square.Row, square.Col];
+        }
+
+        public Piece GetPieceAtCoords(int row, int col)
+        {
+            return board[row, col];
         }
         
         public Square FindPiece(Piece piece)
