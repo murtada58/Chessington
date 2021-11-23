@@ -13,7 +13,7 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentSquare = board.FindPiece(this);
             var availableMoves = new List<Square>();
-            var moveSets = new List<(int, int, int, int)>
+            var lineMoves = new List<(int, int, int, int)>
             {
                 (currentSquare.Row + 1, currentSquare.Col, 1, 0),
                 (currentSquare.Row - 1, currentSquare.Col, -1, 0),
@@ -21,9 +21,15 @@ namespace Chessington.GameEngine.Pieces
                 (currentSquare.Row, currentSquare.Col - 1, 0, -1),
             };
 
-            foreach (var moveSet in moveSets)
+            foreach (var lineMove in lineMoves)
             {
-                this.AddAvailableLineMoves(board, availableMoves, moveSet.Item1, moveSet.Item2, moveSet.Item3, moveSet.Item4);
+                this.AddAvailableLineMoves( board,
+                                            availableMoves,
+                                            lineMove.Item1,
+                                            lineMove.Item2,
+                                            lineMove.Item3,
+                                            lineMove.Item4
+                                            );
             }
             
             return availableMoves;

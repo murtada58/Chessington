@@ -13,61 +13,40 @@ namespace Chessington.GameEngine.Pieces
             Square currentSquare = board.FindPiece(this);
             var availableMoves = new List<Square>();
             int numberOfStraightMoves = HasMoved ? 1 : 2;
+            
+            var possibleCaptureMoves = new List<(int, int)>
+            {
+                (currentSquare.Row + (this.Player == Player.Black ? 1 : -1), currentSquare.Col - 1),
+                (currentSquare.Row + (this.Player == Player.Black ? 1 : -1), currentSquare.Col + 1)
+            };
+
             switch (this.Player)
             {
                 case GameEngine.Player.White:
                     for (int i = 1; i <= numberOfStraightMoves; i++)
                     {
-                        if (board.CanMoveTo(currentSquare.Row - i, currentSquare.Col))
+                        if (this.CanMoveTo(board, currentSquare.Row - i, currentSquare.Col))
                         {
                             var availableMove = Square.At(currentSquare.Row - i, currentSquare.Col);
                             availableMoves.Add(availableMove);
                         }
                         else { break; }
                     }
-
-                    if (board.InBounds(currentSquare.Row - 1, currentSquare.Col - 1) &&
-                        board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col - 1) != null &&
-                        this.Player != board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col - 1).Player)
-                    {
-                        var availableMove = Square.At(currentSquare.Row - 1, currentSquare.Col - 1);
-                        availableMoves.Add(availableMove);
-                    }
                     
-                    if (board.InBounds(currentSquare.Row - 1, currentSquare.Col + 1) &&
-                        board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col + 1) != null &&
-                        this.Player != board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col + 1).Player)
-                    {
-                        var availableMove = Square.At(currentSquare.Row - 1, currentSquare.Col + 1);
-                        availableMoves.Add(availableMove);
-                    }
+                    this.AddMovesWhereCanCapture(board, availableMoves, possibleCaptureMoves);
                     break;
                 
                 case GameEngine.Player.Black:
                     for (int i = 1; i <= numberOfStraightMoves; i++)
                     {
-                        if (board.CanMoveTo(currentSquare.Row + i, currentSquare.Col))
+                        if (this.CanMoveTo(board, currentSquare.Row + i, currentSquare.Col))
                         {
                             var availableMove = Square.At(currentSquare.Row + i, currentSquare.Col);
                             availableMoves.Add(availableMove); 
                         }
                         else { break; }
                     }
-                    if (board.InBounds(currentSquare.Row + 1, currentSquare.Col - 1) &&
-                        board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col - 1) != null &&
-                        this.Player != board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col - 1).Player)
-                    {
-                        var availableMove = Square.At(currentSquare.Row + 1, currentSquare.Col - 1);
-                        availableMoves.Add(availableMove);
-                    }
-                    
-                    if (board.InBounds(currentSquare.Row + 1, currentSquare.Col + 1) &&
-                        board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col + 1) != null &&
-                        this.Player != board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col + 1).Player)
-                    {
-                        var availableMove = Square.At(currentSquare.Row + 1, currentSquare.Col + 1);
-                        availableMoves.Add(availableMove);
-                    }
+                    this.AddMovesWhereCanCapture(board, availableMoves, possibleCaptureMoves);
                     break;
             }
 
