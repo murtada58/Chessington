@@ -19,7 +19,8 @@ namespace Chessington.GameEngine.Pieces
                                                 currentSquare.Row,
                                                 currentSquare.Col,
                                                 (this.Player == Player.White ? -1 : 1),
-                                                numberOfStraightMoves);
+                                                numberOfStraightMoves
+                                                );
 
             
             var possibleCaptureMoves = new List<(int, int)>
@@ -33,12 +34,12 @@ namespace Chessington.GameEngine.Pieces
         }
         
         public void AddAvailablePawnStraightMoves(  Board board,
-            List<Square> availableMoves,
-            int row,
-            int col,
-            int direction,
-            int numberOfStraightMoves
-        )
+                                                    List<Square> availableMoves,
+                                                    int row,
+                                                    int col,
+                                                    int direction,
+                                                    int numberOfStraightMoves
+                                                    )
         {
             for (int i = direction; i * direction <= numberOfStraightMoves; i += direction)
             {
