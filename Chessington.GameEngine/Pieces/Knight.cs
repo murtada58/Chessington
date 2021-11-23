@@ -24,14 +24,14 @@ namespace Chessington.GameEngine.Pieces
                 (currentSquare.Row - 1, currentSquare.Col - 2)
             };
 
-            var availableMoves = Enumerable.Empty<Square>();
+            var availableMoves = new List<Square>();
             
             foreach ((int, int) possibleMove in possibleMoves)
             {
                 if (board.CanMoveTo(possibleMove.Item1, possibleMove.Item2))
                 {
                     var availableMove = Square.At(possibleMove.Item1, possibleMove.Item2);
-                    availableMoves = availableMoves.Append(availableMove);
+                    availableMoves.Add(availableMove);
                 }
             }
             

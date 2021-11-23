@@ -23,5 +23,23 @@ namespace Chessington.GameEngine.Pieces
             var currentSquare = board.FindPiece(this);
             board.MovePiece(currentSquare, newSquare);
         }
+
+        public void AddAvailableLineMoves(Board board, List<Square> availableMoves, int startingRow, int startingCol, int rowIncrement, int colIncrement)
+        {
+            int i = startingRow;
+            int j = startingCol;
+            while (board.CanMoveTo(i, j))
+            {
+                var availableMove = Square.At(i, j);
+                availableMoves.Add(availableMove);
+                i += rowIncrement;
+                j += colIncrement;
+            }
+            if (board.InBounds(i, j) && this.Player != board.GetPieceAtCoords(i, j).Player)
+            {
+                var availableMove = Square.At(i, j);
+                availableMoves.Add(availableMove);
+            }
+        }
     }
 }

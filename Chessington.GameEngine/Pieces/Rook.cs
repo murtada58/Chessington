@@ -12,47 +12,20 @@ namespace Chessington.GameEngine.Pieces
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
             Square currentSquare = board.FindPiece(this);
-            var availableMoves = Enumerable.Empty<Square>();
-            // north
-            int i = currentSquare.Row + 1;
-            int j = currentSquare.Col;
-            while (board.CanMoveTo(i, j))
+            var availableMoves = new List<Square>();
+            var moveSets = new List<(int, int, int, int)>
             {
-                var availableMove = Square.At(i, j);
-                availableMoves = availableMoves.Append(availableMove);
-                i++;
-            }
-            
-            // south
-            i = currentSquare.Row - 1;
-            j = currentSquare.Col;
-            while (board.CanMoveTo(i, j))
-            {
-                var availableMove = Square.At(i, j);
-                availableMoves = availableMoves.Append(availableMove);
-                i--;
-            }
-            
-            // east
-            i = currentSquare.Row;
-            j = currentSquare.Col + 1;
-            while (board.CanMoveTo(i, j))
-            {
-                var availableMove = Square.At(i, j);
-                availableMoves = availableMoves.Append(availableMove);
-                j++;
-            }
-            
-            // west
-            i = currentSquare.Row;
-            j = currentSquare.Col - 1;
-            while (board.CanMoveTo(i, j))
-            {
-                var availableMove = Square.At(i, j);
-                availableMoves = availableMoves.Append(availableMove);
-                j--;
-            }
+                (currentSquare.Row + 1, currentSquare.Col, 1, 0),
+                (currentSquare.Row - 1, currentSquare.Col, -1, 0),
+                (currentSquare.Row, currentSquare.Col + 1, 0, 1),
+                (currentSquare.Row, currentSquare.Col - 1, 0, -1),
+            };
 
+            foreach (var moveSet in moveSets)
+            {
+                this.AddAvailableLineMoves(board, availableMoves, moveSet.Item1, moveSet.Item2, moveSet.Item3, moveSet.Item4);
+            }
+            
             return availableMoves;
         }
     }

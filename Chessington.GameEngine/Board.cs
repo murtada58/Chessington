@@ -22,6 +22,13 @@ namespace Chessington.GameEngine
             CapturedPieces = new List<Piece>();
         }
 
+        public bool InBounds(int row, int col)
+        {
+            if (row < 0 || row >= GameSettings.BoardSize) {return false;}
+            if (col < 0 || col >= GameSettings.BoardSize) {return false;}
+            return true;
+        }
+
         public void AddPiece(Square square, Piece pawn)
         {
             board[square.Row, square.Col] = pawn;
@@ -49,10 +56,7 @@ namespace Chessington.GameEngine
 
         public bool CanMoveTo(int row, int col)
         {
-            if (row < 0 || row >= GameSettings.BoardSize) {return false;}
-            if (col < 0 || col >= GameSettings.BoardSize) {return false;}
-            
-            return board[row, col] == null;
+            return InBounds(row, col) && board[row, col] == null;
         }
         public void MovePiece(Square from, Square to)
         {
