@@ -13,23 +13,33 @@ namespace Chessington.GameEngine.Pieces
             Square currentSquare = board.FindPiece(this);
             var availableMoves = Enumerable.Empty<Square>();
             int numberOfStraightMoves = HasMoved ? 1 : 2;
-            if (this.Player == Player.White)
+            switch (this.Player)
             {
-                for (int i = 1; i <= numberOfStraightMoves; i++)
-                {
-                    var availableMove = Square.At(currentSquare.Row - i, currentSquare.Col);
-                    availableMoves = availableMoves.Append(availableMove); 
-                }
+                case GameEngine.Player.White:
+                    for (int i = 1; i <= numberOfStraightMoves; i++)
+                    {
+                        if (board.CanMoveTo(currentSquare.Row - i, currentSquare.Col))
+                        {
+                            var availableMove = Square.At(currentSquare.Row - i, currentSquare.Col);
+                            availableMoves = availableMoves.Append(availableMove);
+                        }
+                        else { break; }
+                    }
+                    break;
+                
+                case GameEngine.Player.Black:
+                    for (int i = 1; i <= numberOfStraightMoves; i++)
+                    {
+                        if (board.CanMoveTo(currentSquare.Row + i, currentSquare.Col))
+                        {
+                            var availableMove = Square.At(currentSquare.Row + i, currentSquare.Col);
+                            availableMoves = availableMoves.Append(availableMove); 
+                        }
+                        else { break; }
+                    }
+                    break;
             }
-            else
-            {
-                for (int i = 1; i <= numberOfStraightMoves; i++)
-                {
-                    var availableMove = Square.At(currentSquare.Row + i, currentSquare.Col);
-                    availableMoves = availableMoves.Append(availableMove); 
-                }
-            }
-        
+
             return availableMoves;
         }
     }
