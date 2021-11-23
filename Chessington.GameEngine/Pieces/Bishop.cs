@@ -15,7 +15,7 @@ namespace Chessington.GameEngine.Pieces
             // north east
             int i = currentSquare.Row + 1;
             int j = currentSquare.Col + 1;
-            while (i < GameSettings.BoardSize && j < GameSettings.BoardSize && board.GetPieceAtCoords(i, j) == null)
+            while (board.CanMoveTo(i, j))
             {
                 var availableMove = Square.At(i, j);
                 availableMoves = availableMoves.Append(availableMove);
@@ -26,7 +26,7 @@ namespace Chessington.GameEngine.Pieces
             // north west
             i = currentSquare.Row + 1;
             j = currentSquare.Col - 1;
-            while (i < GameSettings.BoardSize && j >= 0 && board.GetPieceAtCoords(i, j) == null)
+            while (board.CanMoveTo(i, j))
             {
                 var availableMove = Square.At(i, j);
                 availableMoves = availableMoves.Append(availableMove);
@@ -37,7 +37,7 @@ namespace Chessington.GameEngine.Pieces
             // south east
             i = currentSquare.Row - 1;
             j = currentSquare.Col + 1;
-            while (i >= 0 && j < GameSettings.BoardSize && board.GetPieceAtCoords(i, j) == null)
+            while (board.CanMoveTo(i, j))
             {
                 var availableMove = Square.At(i, j);
                 availableMoves = availableMoves.Append(availableMove);
@@ -48,7 +48,7 @@ namespace Chessington.GameEngine.Pieces
             // south west
             i = currentSquare.Row - 1;
             j = currentSquare.Col - 1;
-            while (i >= 0 && j >= 0 && board.GetPieceAtCoords(i, j) == null)
+            while (board.CanMoveTo(i, j))
             {
                 var availableMove = Square.At(i, j);
                 availableMoves = availableMoves.Append(availableMove);
