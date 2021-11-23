@@ -12,15 +12,22 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentSquare = board.FindPiece(this);
             var availableMoves = Enumerable.Empty<Square>();
+            int numberOfStraightMoves = HasMoved ? 1 : 2;
             if (this.Player == Player.White)
             {
-                var availableMove = Square.At(currentSquare.Row - 1, currentSquare.Col);
-                availableMoves = availableMoves.Append(availableMove);
+                for (int i = 1; i <= numberOfStraightMoves; i++)
+                {
+                    var availableMove = Square.At(currentSquare.Row - i, currentSquare.Col);
+                    availableMoves = availableMoves.Append(availableMove); 
+                }
             }
             else
             {
-                var availableMove = Square.At(currentSquare.Row + 1, currentSquare.Col);
-                availableMoves = availableMoves.Append(availableMove);
+                for (int i = 1; i <= numberOfStraightMoves; i++)
+                {
+                    var availableMove = Square.At(currentSquare.Row + i, currentSquare.Col);
+                    availableMoves = availableMoves.Append(availableMove); 
+                }
             }
         
             return availableMoves;
