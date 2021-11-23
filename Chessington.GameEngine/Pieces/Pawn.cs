@@ -25,6 +25,22 @@ namespace Chessington.GameEngine.Pieces
                         }
                         else { break; }
                     }
+
+                    if (board.InBounds(currentSquare.Row - 1, currentSquare.Col - 1) &&
+                        board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col - 1) != null &&
+                        this.Player != board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col - 1).Player)
+                    {
+                        var availableMove = Square.At(currentSquare.Row - 1, currentSquare.Col - 1);
+                        availableMoves.Add(availableMove);
+                    }
+                    
+                    if (board.InBounds(currentSquare.Row - 1, currentSquare.Col + 1) &&
+                        board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col + 1) != null &&
+                        this.Player != board.GetPieceAtCoords(currentSquare.Row - 1, currentSquare.Col + 1).Player)
+                    {
+                        var availableMove = Square.At(currentSquare.Row - 1, currentSquare.Col + 1);
+                        availableMoves.Add(availableMove);
+                    }
                     break;
                 
                 case GameEngine.Player.Black:
@@ -36,6 +52,21 @@ namespace Chessington.GameEngine.Pieces
                             availableMoves.Add(availableMove); 
                         }
                         else { break; }
+                    }
+                    if (board.InBounds(currentSquare.Row + 1, currentSquare.Col - 1) &&
+                        board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col - 1) != null &&
+                        this.Player != board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col - 1).Player)
+                    {
+                        var availableMove = Square.At(currentSquare.Row + 1, currentSquare.Col - 1);
+                        availableMoves.Add(availableMove);
+                    }
+                    
+                    if (board.InBounds(currentSquare.Row + 1, currentSquare.Col + 1) &&
+                        board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col + 1) != null &&
+                        this.Player != board.GetPieceAtCoords(currentSquare.Row + 1, currentSquare.Col + 1).Player)
+                    {
+                        var availableMove = Square.At(currentSquare.Row + 1, currentSquare.Col + 1);
+                        availableMoves.Add(availableMove);
                     }
                     break;
             }
